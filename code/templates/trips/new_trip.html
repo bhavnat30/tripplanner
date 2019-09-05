@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Events</title>
+    
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a href="{{ url_for('home') }}" class="navbar-brand">
+          </a>
+                <a class="navbar-brand" href="{{ url_for('home') }}">Trip Planner</a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="{{ url_for('hotels.index') }}">Hotels</a></li>
+                    <li class="active"><a href="{{ url_for('flights.index') }}">Events</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="{{ url_for('home') }}">Home</a></li>
+                    <li><a href="{{ url_for('users.contact_us') }}">Contact</a></li>
+                    {% if session['email'] %}
+                    <li><a href="{{ url_for('users.user_dashboard') }}" id="dashboard"><span class="glyphicon glyphicon-tasks"></span>  Dashboard</a></li>
+                    <li><a href="{{ url_for('users.logout_user') }}"><span class="glyphicon glyphicon-log-out"></span>  Logout</a></li>
+                    {% else %}
+                    <li><a href="{{ url_for('users.register_user') }}" id="new_user">Register</a></li>
+                    <li><a href="{{ url_for('users.login_user') }}" id="old_user">Login</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+            <!--/.nav-collapse -->
+        </div>
+    </nav>
+    <div class="page-header">
+        <h1>Create Your Trip</h1>
+    </div>
+    <div class="form-size">
+        <form method="post">
+            <div class="form-group">
+                <label for="source">source</label>
+                <input type="text" name="source" id="source" class="form-control" placeholder="source" required>
+            </div>
+            <div class="form-group">
+                <label for="destination">Destination</label>
+                <input type="text" name="destination" id="destination" class="form-control" placeholder="Destination" required>
+            </div>
+            <div class="form-group">
+                <label for="total_days">Total number of days</label>
+                <input type="text" name="total_days" id="total_days" class="form-control" placeholder="Total number of days" required>
+            </div>
+            <div class="form-group">
+                <label for="first_city">First City</label>
+                <input type="text" name="first_city" id="first_city" class="form-control" placeholder="First City" required>
+            </div>
+            <div class="form-group">
+                <label for="reservation">Reservations</label>
+                <input type="text" name="reservation" id="reservation" class="form-control" placeholder="Reservations" required>
+            </div>
+            <button type="submit" class="btn btn-default">Create</button>
+        </form>
+    </div>
+    <footer class="footer">
+        <div class="container">
+            <p class="text-muted"></p>
+        </div>
+    </footer>
+</body>
+
+</html>
