@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Contact</title>
+    
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a href="{{ url_for('home') }}" class="navbar-brand">
+           
+          </a>
+                <a class="navbar-brand" href="{{ url_for('home') }}">Trip Planner</a>
+            </div>
+            <div id="navbar" class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="{{ url_for('hotels.index') }}">Hotels</a></li>
+                    <li><a href="{{ url_for('flights.index') }}">Events</a></li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="{{ url_for('home') }}">Home</a></li>
+                    <li class="active"><a href="{{ url_for('users.contact_us') }}">Contact</a></li>
+                    {% if session['email'] %}
+                    <li><a href="{{ url_for('users.user_dashboard') }}" id="dashboard"><span class="glyphicon glyphicon-tasks"></span>  Dashboard</a></li>
+                    <li><a href="{{ url_for('users.logout_user') }}"><span class="glyphicon glyphicon-log-out"></span>  Logout</a></li>
+                    {% else %}
+                    <li><a href="{{ url_for('users.register_user') }}" id="new_user">Register</a></li>
+                    <li><a href="{{ url_for('users.login_user') }}" id="old_user">Login</a></li>
+                    {% endif %}
+                </ul>
+            </div>
+            <!--/.nav-collapse -->
+        </div>
+    </nav>
+    <br>
+    <br>
+    {% if session['email'] in config.ADMINS %}
+    <div class="container">
+        <div class="page-header">
+            <h1 align="center">Contact Us <small>- list of messages</small></h1>
+        </div>
+        {% for item in messages %}
+        <div class="panel panel-success">
+            <div class="panel-heading">
+                <h3 align="center" class="list-group-item-heading">By {{ item.name }}</h3>
+            </div>
+            <div class="panel-body">
+                <p align="center" class="list-group-item-text">Email: {{ item.email }}</p>
+                <p align="center" class="list-group-item-text">Message: {{ item.message }}</p>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% else %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <div class="well well-sm">
+                    <form class="form-horizontal" method="post">
+                        <fieldset>
+                            <legend class="text-center" id="con">Contact us</legend>
+                            <!-- Name input-->
+                            <div class="form-group">
+                                <label class="col-md-2 control-label" for="name">Name</label>
+                                <div class="col-md-10">
+                                    <input id="name" name="name" type="text" placeholder="Your name" class="form-control" autofocus>
+                                </div>
+                            </div>
+                            <br>
+                            <!-- Email input-->
+                            <div class="form-group">
+                                <label class="col-md-2 control-label" for="email">Your E-mail</label>
+                                <div class="col-md-10">
+                                    <input id="email" name="email" type="email" placeholder="Your email" class="form-control">
+                                </div>
+                            </div>
+                            <br>
+                            <!-- Message body -->
+                            <div class="form-group">
+                                <label class="col-md-2 control-label" for="message">Your message</label>
+                                <div class="col-md-10">
+                                    <textarea class="form-control" id="message" name="message" placeholder="Please enter your message here..." rows="5"></textarea>
+                                </div>
+                            </div>
+                            <br>
+                            <!-- Form actions -->
+                            <div class="form-group">
+                                <div class="col-md-12 text-right">
+                                    <button type="submit" class="btn btn-primary btn-lg">Submit</button>
+                                </div>
+                            </div>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <br>
+    <br>
+    <br>
+    <h3 align="center" id="con">Our Address</h3>
+    <div class="mapouter"><div class="gmap_canvas"><iframe width="600" height="500" id="gmap_canvas" src="https://maps.google.com/maps?q=dublin&t=&z=13&ie=UTF8&iwloc=&output=embed" frameborder="0" scrolling="no" marginheight="0" marginwidth="0">
+    </iframe><a href="https://www.bitgeeks.net/embed-google-map/"></a></div><style>.mapouter{position:relative;text-align:right;height:500px;width:600px;}.gmap_canvas {overflow:hidden;background:none!important;height:500px;width:600px;}</style></div>
+    {% endif %}
+    <footer class="footer">
+        <div class="container">
+            <p class="text-muted"></p>
+        </div>
+    </footer>
+</body>
+
+</html>
